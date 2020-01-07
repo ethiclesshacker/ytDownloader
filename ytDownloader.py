@@ -1,8 +1,6 @@
 import requests
 from sys import argv
 import re
-import wget
-import pyperclip
 
 url = "https://www.youtube.com/watch?v=sWrqyQWfhrs"
 
