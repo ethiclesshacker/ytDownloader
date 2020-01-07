@@ -8,10 +8,15 @@
 
 {% block body %}
 
-    <h2>Enter link of YouTube video below :</h2>
-    <form>
-        Enter Yotube link : <input type="text" name="link"> <br>
+    <h2>YouTube Video Downloader</h2>
+    <form action=# method="POST" >
+        Enter Youtube link : <input type="text" name="link"> <br>
         <br> <input type="submit" value="Submit">
     </form>
-
+    <br><br>
+    
+    {% if (not downloadLink == "/") %}
+        <a href={{ downloadLink }} target="_blank">Watch Online</a> <br> <br>
+        <a href={{ downloadLink }} download>Download </a>
+    {% endif %}
 {% endblock %}
