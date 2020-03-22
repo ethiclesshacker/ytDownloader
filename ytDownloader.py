@@ -1,17 +1,8 @@
 import requests
 from sys import argv
 import re
+import urllib.parse
 
-
-# if argv == 2 :
-#     url = argv[1]
-# else :
-#     url = input("Enter Yotube URL : ")
-
-# if(not "http" in url):
-#     url = "https://" + url
-
-# videoId = url.split("watch?v=")[1]
 
 def getFile(url):
 
@@ -19,25 +10,27 @@ def getFile(url):
     title = re.findall(r'\\\"title\\\":\\\"(.+?)\\\"',r.text)[0]
     title = title.split()
     title = "+".join(title)
-    print(title)
-    links = re.findall(r'(https:.+?)\"', r.text)
+    links = re.findall(r'(https.+?)\\\"', r.text)
     linksFinal = []
     for link in links:
         if("googlevideo.com" in link):
-            link = link + '&contentlength=178814912'
-            link = link + '&title=' + title
-            link = link.replace("\\u0026", "&")
-            link = link.replace("\\&", "&")
-            link = link.replace("\\/", "/")
+            try:                    
+                link = urllib.parse.unquote(link).encode('latin1').decode('unicode_escape')
+                link = link.replace("\\u0026", "&")
+                link = link + '&contentlength=178814912'
+                link = link + '&title=' + title
+            except: 
+                continue
+
             linksFinal.append(link)
+            print(link)
 
     videoLink = linksFinal[3]
     return videoLink
 
 
 
-
-
+# getFile("https://www.youtube.com/watch?v=30W9txGVZXg")
 # videoLink = linksFinal.pop()
 # videoLink = videoLink + '&contentlength=178814912'
 # # videoLink = videoLink + '&' + videoId
