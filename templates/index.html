@@ -15,8 +15,14 @@
     </form>
     <br><br>
     
-    {% if (not downloadLink == "/") %}
-        <a href={{ downloadLink }} target="_blank">Watch Online</a> <br> <br>
-        <a href={{ downloadLink }} download>Download </a>
+
+    {% if (not len == 0) %}
+        <h4>Available formats : </h4>
+        {% for i in range(0,len) %}
+            <a href={{ links[i] }} download> {{ titles[i] }} </a> 
+            <br>
+            <br>
+        {% endfor %}
     {% endif %}
+
 {% endblock %}
